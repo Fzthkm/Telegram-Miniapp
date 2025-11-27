@@ -1,0 +1,65 @@
+:root{
+width:200%; /* 2 pages */
+height:100vh;
+transition:transform .33s ease;
+touch-action:pan-y;
+}
+.mobile .page{
+width:50%; /* because pages container is 200% */
+min-width:100%;
+padding:24px;
+}
+.page .card{
+background:var(--card);
+border-radius:12px;
+padding:16px;
+box-shadow:0 6px 18px rgba(12,15,20,0.06);
+}
+
+
+/* кнопки */
+.btn{
+display:inline-block;
+padding:10px 14px;
+border-radius:8px;
+background:var(--accent);
+color:white;
+border:none;
+cursor:pointer;
+font-weight:600;
+}
+
+
+/* ===== Desktop (two columns) ===== */
+.desktop{display:none}
+.desktop .left, .desktop .right{
+padding:24px;
+height:100vh;
+overflow:auto;
+}
+.desktop .left{border-right:1px solid rgba(15,23,42,0.06);}
+
+
+/* Ограничиваем максимальную ширину контента, чтобы на больших экранах не растягивалось */
+.container-centered{
+max-width:1100px;
+margin:0 auto;
+}
+
+
+/* Небольшая адаптивность */
+@media (min-width: 720px){
+/* На широкой — показываем desktop layout */
+.mobile{display:none}
+.desktop{display:grid; grid-template-columns:1fr 1fr}
+}
+
+
+/* мелкие стили внутри страниц */
+.h1{font-size:20px; margin:0 0 12px}
+.p-muted{color:var(--muted); font-size:14px}
+
+
+/* для модалки (если нужно внутри страниц) */
+.modal-bg{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); justify-content:center; align-items:center}
+.modal{background:var(--card); padding:18px; border-radius:10px; min-width:240px}
