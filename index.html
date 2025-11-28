@@ -1,15 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Круговая диаграмма</title>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <style>
+        /* Глобальный стиль */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0f0f10;
+            color: #f2f2f7;
+            font-family: "Inter", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Контейнер */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        /* Карточка */
+        .card {
+            background: #1c1c1e;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* Заголовок */
+        .title {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #e5e5ea;
+        }
+
+        /* Диаграмма */
+        #donut_single {
+            width: 100%;
+            height: 500px;
+        }
+
+        /* Адаптив под маленькие экраны */
+        @media (max-width: 480px) {
+            #donut_single {
+                height: 350px;
+            }
+            .title {
+                font-size: 20px;
+            }
+        }
+    </style>
+
     <script type="text/javascript">
         google.load("visualization", "1", { packages: ["corechart"] });
         google.setOnLoadCallback(drawChart);
+
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['CMS', 'Сайты на базе систем управления контентом'],
+                ['Категория', 'Количество'],
                 ['Инфекционные и паразитарные болезни', 1000],
                 ['Новообразования', 700],
                 ['Болезни системы крови', 510],
@@ -20,19 +80,38 @@
             ]);
 
             var options = {
-                title: 'Общее количество заявок',
-                pieHole: 0.5,
-                pieSliceTextStyle: {
-                    color: 'black',
-                },
-                legend: 'none'
+                title: '',
+                pieHole: 0.55,
+                legend: { position: 'right', textStyle: { color: '#f2f2f7' } },
+                backgroundColor: 'transparent',
+                pieSliceText: 'percentage',
+                pieSliceBorderColor: 'transparent',
+                chartArea: {
+                    left: 20,
+                    top: 20,
+                    width: '100%',
+                    height: '100%'
+                }
             };
-            var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+
+            var chart = new google.visualization.PieChart(
+                document.getElementById('donut_single')
+            );
             chart.draw(data, options);
         }
+
+        window.onresize = function () {
+            drawChart();
+        };
     </script>
 </head>
+
 <body>
-    <div id="donut_single" style="width: 900px; height: 500px;"></div>
+    <div class="container">
+        <div class="card">
+            <div class="title">Общее количество заявок</div>
+            <div id="donut_single"></div>
+        </div>
+    </div>
 </body>
 </html>
